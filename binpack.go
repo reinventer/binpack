@@ -6,17 +6,17 @@ import "sort"
 // Rectangle - type for rectangle with name, width and height
 type Rectangle struct {
 	Name          string
-	Width, Height int32
+	Width, Height int
 }
 
 // Point - type for left-top point of packed rectangle
 type Point struct {
 	Name string
-	X, Y int32
+	X, Y int
 }
 
 // Pack places a rectangle in a bin of width w
-func Pack(width int32, rectangles []Rectangle) (int32, []Point, error) {
+func Pack(width int, rectangles []Rectangle) (int, []Point, error) {
 	sorted := make([]Rectangle, len(rectangles))
 	copy(sorted, rectangles)
 	sort.Sort(SortRectangle(sorted))

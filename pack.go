@@ -1,18 +1,18 @@
 package binpack
 
-func newPack(width int32) *bin {
+func newPack(width int) *bin {
 	return &bin{
 		width: width,
 	}
 }
 
 type bin struct {
-	width  int32
+	width  int
 	levels []*level
 }
 
-func (p *bin) height() int32 {
-	var h int32
+func (p *bin) height() int {
+	var h int
 	for _, l := range p.levels {
 		h += l.height
 	}
@@ -75,13 +75,13 @@ func (p *bin) addLevel(r Rectangle) {
 }
 
 type level struct {
-	startFrom       int32
-	width           int32
-	height          int32
+	startFrom       int
+	width           int
+	height          int
 	top             []packedRectangle
 	bottom          []packedRectangle
-	topWidthLeft    int32
-	bottomWidthLeft int32
+	topWidthLeft    int
+	bottomWidthLeft int
 }
 
 func (l *level) addRectangle(r Rectangle) bool {
@@ -149,16 +149,16 @@ func isCollapsedLTRB(lt packedRectangle, rb packedRectangle) bool {
 	pointX := lt.point.X + lt.rectangle.Width
 	pointY := lt.point.Y + lt.rectangle.Height
 
-	if pointX >= rb.point.X && pointX <= rb.point.X+rb.rectangle.Width &&
-		pointY >= rb.point.Y && pointY <= rb.point.Y+rb.rectangle.Height {
+	if pointX > rb.point.X && pointX <= rb.point.X+rb.rectangle.Width &&
+		pointY > rb.point.Y && pointY <= rb.point.Y+rb.rectangle.Height {
 		return true
 	}
 
 	return false
 }
 
-func sumWidth(rects []packedRectangle) int32 {
-	var w int32
+func sumWidth(rects []packedRectangle) int {
+	var w int
 	for _, r := range rects {
 		w += r.rectangle.Width
 	}
